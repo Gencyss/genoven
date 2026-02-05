@@ -11,10 +11,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: set up JDK 17  # <--- ESTO ES LO QUE SOLUCIONA EL ERROR
+      - name: set up JDK 21  # <--- CAMBIADO A 21 PARA EVITAR EL ERROR
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'zulu'
 
       - name: Install Dependencies
@@ -23,15 +23,15 @@ jobs:
       - name: Add Android Platform
         run: npx cap add android || echo "Android ya existe"
 
-      - name: Copy Assets
-        run: npx cap copy android
+      - name: Sync Capacitor
+        run: npx cap sync android
 
       - name: Build APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
-
+          ./gradlew assembleDebug --stacktrace
+          
       - name: Upload Result
         uses: actions/upload-artifact@v4
         with:
