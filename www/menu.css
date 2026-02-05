@@ -1,0 +1,168 @@
+
+/* =========================================
+   1. EL CONTENEDOR (El escenario de fondo)
+   ========================================= */
+.contenido {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    
+    /* DIMENSIONES: */
+    width: 100%;             /* Ocupa todo el ancho de la pantalla */
+    min-height: 100vh;       /* Altura mínima: toda la pantalla del usuario */
+    
+    /* ESPACIADO: */
+    padding: 60px 20px;      /* Espacio interno para que nada toque los bordes del navegador */
+    
+    box-sizing: border-box;
+    background-color: #f0f0f0; 
+}
+
+/* =========================================
+   2. EL CUADERNO (Marco de Cuero)
+   ========================================= */
+.menu-card {
+    position: relative;
+    z-index: 20;
+    
+    /* ANCHO DEL CUADERNO: */
+    width: 95%;              /* Se adapta al ancho de pantalla */
+    max-width: 450px;        /* Pero no crece más de 450px en PC */
+    
+    /* ALTO: Normalmente se ajusta solo al contenido, 
+       si quieres un alto fijo usa 'height', pero no se recomienda en menús. */
+    
+    /* ESPACIADO Y BORDES: */
+    padding: 18px;           /* Grosor del borde de cuero visible */
+    margin-top: 80px;        /* Distancia desde el techo (importante por el logo) */
+    border-radius: 15px;     /* Redondeo de las esquinas */
+    
+    background-color: #5d4037; 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+}
+
+/* COSTURAS (Decoración interna) */
+.menu-card::after {
+    content: "";
+    position: absolute;
+    /* DISTANCIA DE LAS COSTURAS AL BORDE: */
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    pointer-events: none;
+}
+
+/* =========================================
+   3. HOJA DE PAPEL (Interior blanco)
+   ========================================= */
+.hoja-papel {
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;             /* Ocupa todo el interior del cuaderno */
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    
+    /* ESPACIADO INTERNO (Padding):
+       1º: Arriba (50px) - Da espacio para que el logo no tape el primer botón.
+       2º: Lados (20px) - Aire a los costados de los botones.
+       3º: Abajo (30px) - Espacio final tras el último botón. */
+    padding: 50px 20px 30px 20px; 
+    
+    overflow: visible; 
+}
+
+/* =========================================
+   4. IMAGEN / LOGO (La estrella que sobresale)
+   ========================================= */
+.menu-logo {
+    position: relative;
+    display: block;
+    z-index: 30;
+
+    /* TAMAÑO DEL LOGO: */
+    width: 105%;             /* Ancho relativo a la hoja (puede ser > 100%) */
+    max-width: 380px;        /* Límite de tamaño para que no sea gigante */
+    height: auto;            /* Mantiene la proporción original */
+    
+    /* POSICIÓN: */
+    margin-top: -120px;      /* SUBIR/BAJAR: Valor más negativo sube más el logo */
+    left: 0;                 /* IZQUIERDA/DERECHA: Usa valores +/- para moverlo */
+    
+    /* SEPARACIÓN INFERIOR: */
+    margin-bottom: 25px;     /* Distancia entre el logo y los botones */
+    
+    filter: drop-shadow(0 15px 12px rgba(0,0,0,0.4));
+}
+
+/* =========================================
+   5. LISTA Y BOTONES
+   ========================================= */
+.menu-lista {
+    width: 100%;             /* Los botones ocupan todo el ancho de la hoja */
+    display: flex;
+    flex-direction: column;
+    
+    /* SEPARACIÓN ENTRE BOTONES: */
+    gap: 20px;               /* Espacio vertical entre un botón y otro */
+}
+
+.menu-btn {
+    width: 100%;
+    background-color: #4e342e;
+    color: white;
+    border: none;
+    
+    /* TAMAÑO DEL BOTÓN: */
+    padding: 15px 10px;      /* 15px arriba/abajo (altura), 10px a los lados */
+    font-size: 1.1rem;       /* Tamaño de la fuente */
+    
+    /* ESTILO: */
+    font-weight: bold;
+    border-radius: 12px;     /* Redondeo de esquinas de botones */
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 5px 0px #2a1b19; /* Efecto 3D (Sombra inferior) */
+    transition: all 0.2s ease;
+}
+
+/* INTERACCIÓN */
+.menu-btn:active {
+    transform: translateY(4px);    /* Se hunde 4px al hacer clic */
+    box-shadow: 0 1px 0px #2a1b19; /* Se achica la sombra al hundirse */
+}
+
+/* =========================================
+   6. AJUSTES RESPONSIVE (Móviles / Tablets)
+   ========================================= */
+@media (max-width: 480px) {
+    /* Aquí ajustamos medidas para pantallas pequeñas */
+    
+    .menu-card {
+        margin-top: 60px;    /* Reducimos margen superior para no perder espacio */
+        width: 92%;          /* Un poco más ajustado a los bordes del móvil */
+        padding: 12px;       /* Marco de cuero más fino */
+    }
+
+    .menu-logo {
+        width: 110%;         /* Logo un poco más grande para que destaque */
+        margin-top: -85px;   /* Lo bajamos un poco para que no se salga de la pantalla */
+        margin-bottom: 15px; /* Menos espacio con los botones */
+    }
+
+    .hoja-papel {
+        padding: 40px 15px 20px 15px; /* Menos rellenos internos */
+    }
+
+    .menu-btn {
+        padding: 18px;       /* Botones más "altos" para facilitar el toque con el dedo */
+        font-size: 1rem;     /* Fuente un poco más pequeña si el texto es largo */
+    }
+
+    .menu-lista {
+        gap: 15px;           /* Botones un poco más juntos */
+    }
+}

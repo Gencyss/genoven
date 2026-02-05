@@ -1,0 +1,56 @@
+/* REGLAS ANTI-SCROLL */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100dvh; 
+    overflow: hidden !important;
+    position: fixed; 
+    background-color: #f8f9fa; 
+}
+
+.FONDO_MENU {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Fondo base sólido */
+    background-image: 
+        radial-gradient(circle at 50% 120%, rgba(143, 188, 143, 0.15) 0%, transparent 70%),
+        radial-gradient(circle at 10% 40%, rgba(173, 216, 230, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, #fdfdfd 0%, #f4f4f4 100%);
+}
+
+/* CUADRÍCULA CARTOGRÁFICA */
+.FONDO_MENU::before {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    z-index: 1;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+}
+
+/* TOPOGRAFÍA ANIMADA */
+.FONDO_MENU::after {
+    content: "";
+    position: absolute;
+    inset: -600px; 
+    z-index: 2;
+    background: url('./assets/topography.svg') center / 600px 600px repeat;
+    filter: invert(0) sepia(0.2) contrast(1.1) brightness(0.9) opacity(0.15);
+    pointer-events: none;
+    will-change: transform;
+    animation: moverTopografia 80s linear infinite;
+}
+
+@keyframes moverTopografia {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(600px, 300px, 0); }
+}
