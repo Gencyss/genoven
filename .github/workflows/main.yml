@@ -5,19 +5,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 22  # <--- Esto es lo que arregla el error
+          node-version: 22
+
+      - name: set up JDK 17  # <--- ESTO ES LO QUE SOLUCIONA EL ERROR
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
       - name: Install Dependencies
         run: npm install
+
       - name: Add Android Platform
-        run: npx cap add android
+        run: npx cap add android || echo "Android ya existe"
+
       - name: Copy Assets
         run: npx cap copy android
+
       - name: Build APK
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew assembleDebug
+
       - name: Upload Result
         uses: actions/upload-artifact@v4
         with:
